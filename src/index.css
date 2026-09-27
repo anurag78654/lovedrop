@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body text-gray-800 bg-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Envelope styles */
+  .envelope-container {
+    perspective: 1000px;
+  }
+
+  .envelope-flap {
+    transform-origin: top center;
+    transition: transform 0.6s ease-in-out;
+    transform-style: preserve-3d;
+  }
+
+  .envelope-flap.open {
+    transform: rotateX(180deg);
+  }
+
+  .envelope-body {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Letter paper styles */
+  .letter-paper {
+    @apply bg-white shadow-lg rounded-lg;
+    /* Rule lines aligned with text baselines:
+       tiles start at content-box (where text starts),
+       line sits at 24px within each 32px line box = just below the baseline */
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 23px,
+      #d1d5db 23px,
+      #d1d5db 24px,
+      transparent 24px
+    );
+    background-size: 100% 2rem;
+    background-origin: content-box;
+    background-repeat: repeat;
+    line-height: 2rem;
+  }
+
+  /* Theme backgrounds */
+  .theme-romantic {
+    background: linear-gradient(135deg, #ffe4ec 0%, #fff0f3 50%, #ffdde6 100%);
+  }
+
+  .theme-birthday {
+    background: linear-gradient(135deg, #fff3cd 0%, #fffbeb 50%, #fef3c7 100%);
+  }
+
+  .theme-friendship {
+    background: linear-gradient(135deg, #d4f5f0 0%, #f0fdfa 50%, #ccfbf1 100%);
+  }
+
+  /* Handwritten text style */
+  .handwritten {
+    @apply font-handwritten text-lg;
+    letter-spacing: 0.02em;
+  }
+
+  /* Flip card container */
+  .flip-card {
+    perspective: 1000px;
+  }
+
+  .flip-card-inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  .custom-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #ff2861, #ed0447, #ff6b9d);
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

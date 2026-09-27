@@ -1,0 +1,39 @@
+{
+  "name": "lovedrop",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "LoveDrop - Send beautiful virtual letters to your loved ones",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "canvas-confetti": "^1.9.3",
+    "howler": "^2.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^3.2.7",
+    "@vitest/ui": "^3.2.7",
+    "autoprefixer": "^10.4.19",
+    "happy-dom": "^15.11.7",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6",
+    "vite": "^5.3.4",
+    "vitest": "^3.2.7"
+  }
+}
