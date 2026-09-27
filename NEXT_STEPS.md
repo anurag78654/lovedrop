@@ -149,10 +149,10 @@
 ## 🔊 SOUND FILES - Complete Guide
 
 ### Current status
-- ✅ `useSound.js` hook is **built and ready** - plays sounds by name
+- ✅ All 10 sounds **downloaded, trimmed, normalized** (Sept 26, 2026) — see `public/sounds/README.md`
+- ✅ `useSound.js` hook **plays sounds by name** with per-sound volume
 - ✅ Sound **toggles work** in the letter editor
-- ⚠️ **No actual `.mp3` files yet** - app silently skips missing sounds (won't crash)
-- 📄 Full list documented in `public/sounds/README.md`
+- ⏳ `lofi-background.mp3` is in place but **playback not wired yet** (that's task C3)
 
 ### Files needed (place in `public/sounds/`)
 
