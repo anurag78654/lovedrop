@@ -18,9 +18,9 @@ export default function Button({
     primary:
       'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 shadow-lg hover:shadow-xl',
     secondary:
-      'bg-white text-primary-600 border-2 border-primary-200 hover:border-primary-400 hover:bg-primary-50 focus:ring-primary-500',
+      'bg-white dark:bg-gray-900 text-primary-600 border-2 border-primary-200 hover:border-primary-400 hover:bg-primary-50 focus:ring-primary-500',
     ghost:
-      'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:ring-gray-300',
+      'bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-800 focus:ring-gray-300',
     dark: 'bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-500',
     danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
   };

@@ -58,50 +58,53 @@ describe('Home page (/)', () => {
 });
 
 describe('Gallery page (/gallery)', () => {
-  it('renders gallery heading', () => {
+  // Lazy-loaded route: wait for the chunk to resolve
+  it('renders gallery heading', async () => {
     renderAt('/gallery');
     expect(
-      screen.getByRole('heading', { name: /Letter Gallery/ })
+      await screen.findByRole('heading', { name: /Letter Gallery/ }, { timeout: 5000 })
     ).toBeInTheDocument();
   });
 
-  it('shows theme filter buttons', () => {
+  it('shows theme filter buttons', async () => {
     renderAt('/gallery');
-    expect(screen.getByText(/All/)).toBeInTheDocument();
-    expect(screen.getAllByText(/Romantic/).length).toBeGreaterThan(0);
+    expect(await screen.findByText(/All/, {}, { timeout: 5000 })).toBeInTheDocument();
+    expect((await screen.findAllByText(/Romantic/)).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Birthday/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Friendship/).length).toBeGreaterThan(0);
   });
 
-  it('displays letter templates', () => {
+  it('displays letter templates', async () => {
     renderAt('/gallery');
     // Templates from themes should appear
-    expect(screen.getAllByText(/Happy Valentine|To My Best Friend|Happy Birthday/i).length).toBeGreaterThan(0);
+    expect(
+      (await screen.findAllByText(/Happy Valentine|To My Best Friend|Happy Birthday/i, {}, { timeout: 5000 })).length
+    ).toBeGreaterThan(0);
   });
 });
 
 describe('Create page (/create)', () => {
-  it('starts at step 1 - theme selection', () => {
+  it('starts at step 1 - theme selection', async () => {
     renderAt('/create');
-    expect(screen.getByText('Choose Your Theme')).toBeInTheDocument();
+    expect(await screen.findByText('Choose Your Theme', {}, { timeout: 5000 })).toBeInTheDocument();
   });
 
-  it('shows all 3 theme options', () => {
+  it('shows all 3 theme options', async () => {
     renderAt('/create');
-    expect(screen.getAllByText('Romantic').length).toBeGreaterThan(0);
+    expect((await screen.findAllByText('Romantic', {}, { timeout: 5000 })).length).toBeGreaterThan(0);
     expect(screen.getAllByText('Birthday').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Friendship').length).toBeGreaterThan(0);
   });
 
-  it('has a continue button', () => {
+  it('has a continue button', async () => {
     renderAt('/create');
-    expect(screen.getByText(/Continue/)).toBeInTheDocument();
+    expect(await screen.findByText(/Continue/, {}, { timeout: 5000 })).toBeInTheDocument();
   });
 
-  it('accepts theme via URL query parameter', () => {
+  it('accepts theme via URL query parameter', async () => {
     renderAt('/create?theme=birthday');
     // The continue step should still show, theme preselected
-    expect(screen.getByText('Choose Your Theme')).toBeInTheDocument();
+    expect(await screen.findByText('Choose Your Theme', {}, { timeout: 5000 })).toBeInTheDocument();
   });
 });
 

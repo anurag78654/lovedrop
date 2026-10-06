@@ -28,6 +28,8 @@ export function useSound(options = {}) {
     () => localStorage.getItem('soundEnabled') !== 'false'
   );
   const soundsRef = useRef({});
+  const bgMusicRef = useRef(null);
+  const [musicPlaying, setMusicPlaying] = useState(false);
 
   // Preload sounds
   useEffect(() => {
@@ -45,6 +47,10 @@ export function useSound(options = {}) {
 
     return () => {
       Object.values(soundsRef.current).forEach((sound) => sound.unload());
+      if (bgMusicRef.current) {
+        bgMusicRef.current.unload();
+        bgMusicRef.current = null;
+      }
     };
   }, []);
 
@@ -83,12 +89,62 @@ export function useSound(options = {}) {
     setEnabled((prev) => {
       const next = !prev;
       localStorage.setItem('soundEnabled', String(next));
-      if (!next) Howler.stop();
+      if (!next) {
+        Howler.stop();
+        setMusicPlaying(false);
+      }
       return next;
     });
   }, []);
 
-  return { play, playThemeSound, stopAll, enabled, setEnabled, toggle };
+  // --- Background music (looped lofi track, lazy-loaded) ---
+
+  const startMusic = useCallback(() => {
+    if (!enabled) return;
+    if (!bgMusicRef.current) {
+      bgMusicRef.current = new Howl({
+        src: ['/sounds/lofi-background.mp3'],
+        volume: 0.25,
+        loop: true,
+        preload: true,
+        onloaderror: () => {
+          console.warn('Background music not found');
+          setMusicPlaying(false);
+        },
+        onplayerror: () => setMusicPlaying(false),
+      });
+    }
+    bgMusicRef.current.play();
+    setMusicPlaying(true);
+  }, [enabled]);
+
+  const stopMusic = useCallback(() => {
+    if (bgMusicRef.current) {
+      bgMusicRef.current.stop();
+    }
+    setMusicPlaying(false);
+  }, []);
+
+  const toggleMusic = useCallback(() => {
+    if (musicPlaying) {
+      stopMusic();
+    } else {
+      startMusic();
+    }
+  }, [musicPlaying, startMusic, stopMusic]);
+
+  return {
+    play,
+    playThemeSound,
+    stopAll,
+    enabled,
+    setEnabled,
+    toggle,
+    startMusic,
+    stopMusic,
+    toggleMusic,
+    musicPlaying,
+  };
 }
 
 export default useSound;

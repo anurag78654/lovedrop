@@ -5,6 +5,7 @@ import { themes } from '../themes';
 import LetterEditor from '../components/letter/LetterEditor';
 import LetterPreview from '../components/letter/LetterPreview';
 import Button from '../components/ui/Button';
+import ThemeToggle from '../components/ui/ThemeToggle';
 import Modal from '../components/ui/Modal';
 import ConfettiBurst from '../components/effects/ConfettiBurst';
 import { copyToClipboard } from '../lib/utils';
@@ -99,12 +100,12 @@ export default function Create() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Confetti on success */}
       <ConfettiBurst trigger={showConfetti} theme="romantic" />
 
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-40">
+      <nav className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 sticky top-0 z-40">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="text-xl">💌</span>
@@ -124,7 +125,7 @@ export default function Create() {
                         ? 'bg-primary-500 text-white'
                         : s === step
                         ? 'bg-primary-100 text-primary-600 ring-2 ring-primary-500'
-                        : 'bg-gray-100 text-gray-400'
+                        : 'bg-gray-100 text-gray-400 dark:text-gray-500'
                     }
                   `}
                 >
@@ -132,9 +133,10 @@ export default function Create() {
                 </div>
                 {s < 3 && <div className="w-6 md:w-8 h-0.5 bg-gray-200 rounded" />}
               </div>
-            ))}
+              ))}
+            </div>
+            <ThemeToggle />
           </div>
-        </div>
       </nav>
 
       <main className="container mx-auto px-4 py-8 max-w-6xl">
@@ -144,7 +146,7 @@ export default function Create() {
             <h1 className="text-2xl md:text-3xl font-display font-bold text-center mb-2">
               Choose Your Theme
             </h1>
-            <p className="text-gray-500 text-center mb-8">
+            <p className="text-gray-500 dark:text-gray-400 text-center mb-8">
               Pick the perfect occasion for your letter
             </p>
 
@@ -173,7 +175,7 @@ export default function Create() {
                     {t.occasions.slice(0, 3).map((occ) => (
                       <span
                         key={occ}
-                        className="text-xs px-2 py-1 rounded-full bg-white/50"
+                        className="text-xs px-2 py-1 rounded-full bg-white dark:bg-gray-900/50"
                         style={{ color: t.colors.text }}
                       >
                         {occ}
@@ -198,16 +200,16 @@ export default function Create() {
             <div className="flex items-center justify-between mb-6">
               <button
                 onClick={handleBack}
-                className="text-gray-500 hover:text-gray-700 transition-colors"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 transition-colors"
               >
                 ← Back
               </button>
-              <span className="text-sm text-gray-400">Step 2 of 3</span>
+              <span className="text-sm text-gray-400 dark:text-gray-500">Step 2 of 3</span>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Editor */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm">
                 <h2 className="text-xl font-display font-bold mb-4">
                   {theme.emoji} Write Your Letter
                 </h2>
@@ -221,8 +223,8 @@ export default function Create() {
               {/* Preview */}
               <div className="lg:sticky lg:top-24 h-fit">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-gray-700">Live Preview</h2>
-                  <span className="text-sm text-gray-400">See how it looks!</span>
+                  <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Live Preview</h2>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">See how it looks!</span>
                 </div>
                 <LetterPreview letter={currentLetter} />
               </div>
@@ -257,18 +259,18 @@ export default function Create() {
             <div className="flex items-center justify-between mb-6">
               <button
                 onClick={handleBack}
-                className="text-gray-500 hover:text-gray-700 transition-colors"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 transition-colors"
               >
                 ← Back
               </button>
-              <span className="text-sm text-gray-400">Step 3 of 3</span>
+              <span className="text-sm text-gray-400 dark:text-gray-500">Step 3 of 3</span>
             </div>
 
             <div className="max-w-3xl mx-auto">
               <h1 className="text-2xl md:text-3xl font-display font-bold text-center mb-2">
                 Your Letter is Ready! 💌
               </h1>
-              <p className="text-gray-500 text-center mb-8">
+              <p className="text-gray-500 dark:text-gray-400 text-center mb-8">
                 Preview it below and create a shareable link
               </p>
 
@@ -276,16 +278,25 @@ export default function Create() {
               <LetterPreview letter={currentLetter} />
 
               {/* Settings summary */}
-              <div className="mt-6 p-4 bg-white rounded-xl shadow-sm flex flex-wrap gap-4 justify-center text-sm">
-                <span className="text-gray-600">
+              <div className="mt-6 p-4 bg-white dark:bg-gray-900 rounded-xl shadow-sm flex flex-wrap gap-4 justify-center text-sm">
+                <span className="text-gray-600 dark:text-gray-300">
                   🔊 Sounds: {currentLetter.soundsEnabled ? 'ON' : 'OFF'}
                 </span>
-                <span className="text-gray-600">
+                <span className="text-gray-600 dark:text-gray-300">
                   🎵 Music: {currentLetter.musicEnabled ? 'ON' : 'OFF'}
                 </span>
-                <span className="text-gray-600">
+                <span className="text-gray-600 dark:text-gray-300">
                   🎨 Decorations: {currentLetter.decorations.length}
                 </span>
+                {currentLetter.unlockDate && (
+                  <span className="text-gray-600 dark:text-gray-300">
+                    🔒 Opens:{' '}
+                    {new Date(currentLetter.unlockDate).toLocaleString(undefined, {
+                      dateStyle: 'medium',
+                      timeStyle: 'short',
+                    })}
+                  </span>
+                )}
               </div>
 
               {/* Actions */}
@@ -327,17 +338,17 @@ export default function Create() {
       >
         <div className="text-center space-y-4">
           <span className="text-5xl block">💌</span>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Share this link with <strong>{currentLetter.recipientName}</strong>
           </p>
 
           {/* Link box */}
-          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-xl border border-gray-200">
+          <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
             <input
               type="text"
               value={shareLink || ''}
               readOnly
-              className="flex-1 bg-transparent text-sm text-gray-600 outline-none"
+              className="flex-1 bg-transparent text-sm text-gray-600 dark:text-gray-300 outline-none"
             />
             <button
               onClick={handleCopy}
@@ -349,6 +360,9 @@ export default function Create() {
               {copied ? '✓ Copied!' : 'Copy'}
             </button>
           </div>
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            ⏳ This letter stays live for 90 days, then auto-expires
+          </p>
 
           {/* Actions */}
           <div className="flex flex-col gap-3 pt-2">

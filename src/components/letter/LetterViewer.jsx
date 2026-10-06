@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { themes } from '../../themes';
+import { useSound } from '../../hooks/useSound';
 import Envelope from '../envelope/Envelope';
 import HeartParticles from '../effects/HeartParticles';
 import ConfettiBurst from '../effects/ConfettiBurst';
@@ -18,8 +19,17 @@ export default function LetterViewer({ letter }) {
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isRead, setIsRead] = useState(false);
+  const { play, startMusic, stopMusic, toggleMusic, musicPlaying } = useSound();
 
   const theme = themes[letter.theme] || themes.romantic;
+
+  // Background music: start when envelope opens (if sender enabled it), stop on leave
+  useEffect(() => {
+    if (isEnvelopeOpen && letter.music_enabled) {
+      startMusic();
+      return () => stopMusic();
+    }
+  }, [isEnvelopeOpen, letter.music_enabled, startMusic, stopMusic]);
 
   // Fire confetti when envelope opens (birthday theme)
   useEffect(() => {
@@ -33,6 +43,7 @@ export default function LetterViewer({ letter }) {
   const handleOpen = () => {
     setIsEnvelopeOpen(true);
     setIsRead(true);
+    play('openEnvelope');
   };
 
   // Friend flip cards data
@@ -76,7 +87,18 @@ export default function LetterViewer({ letter }) {
       {/* Confetti (birthday theme) */}
       <ConfettiBurst trigger={showConfetti} theme="birthday" />
 
-      <div className="relative z-20 container mx-auto px-4 py-8">
+      {/* Floating music toggle (only when letter has music enabled & is open) */}
+      {isEnvelopeOpen && letter.music_enabled && (
+        <button
+          onClick={toggleMusic}
+          aria-label={musicPlaying ? 'Mute background music' : 'Play background music'}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center text-xl hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-primary-400"
+        >
+          {musicPlaying ? '🔊' : '🔇'}
+        </button>
+      )}
+
+      <div className="relative z-20 container mx-auto px-4 py-8" role="main">
         {/* Envelope stage */}
         {!isEnvelopeOpen ? (
           <div className="flex flex-col items-center justify-center min-h-[80vh]">
@@ -118,7 +140,7 @@ export default function LetterViewer({ letter }) {
               <div className="p-6 md:p-10">
                 {/* Decorations */}
                 {letter.decorations && letter.decorations.length > 0 && (
-                  <div className="flex justify-center gap-3 mb-6 flex-wrap">
+                  <div className="flex justify-center gap-3 mb-6 flex-wrap" aria-hidden="true">
                     {letter.decorations.map((dec) => (
                       <span key={dec.id} className="text-3xl animate-bounce-slow" style={{ animationDelay: `${dec.id.length * 0.1}s` }}>
                         {dec.emoji}

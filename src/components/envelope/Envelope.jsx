@@ -33,11 +33,16 @@ export default function Envelope({ isOpen, onOpen, theme = 'romantic', children 
     <div className="flex flex-col items-center justify-center min-h-[400px] p-8">
       {!stage.includes('open') && (
         <div
-          className="relative cursor-pointer group"
+          className="relative cursor-pointer group rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-300"
           onClick={onOpen}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && onOpen()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onOpen();
+            }
+          }}
           aria-label="Open envelope"
         >
           {/* Envelope body */}
@@ -85,7 +90,7 @@ export default function Envelope({ isOpen, onOpen, theme = 'romantic', children 
             </div>
 
             {/* Decorative pattern */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
               <div className="absolute top-2 left-2 text-2xl">✉️</div>
               <div className="absolute bottom-2 right-2 text-2xl">💕</div>
             </div>

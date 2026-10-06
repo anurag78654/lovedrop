@@ -16,6 +16,7 @@ const useLetterStore = create((set, get) => ({
     decorations: [],
     soundsEnabled: true,
     musicEnabled: false,
+    unlockDate: '',
   },
 
   // Generated share link
@@ -71,6 +72,19 @@ const useLetterStore = create((set, get) => ({
       return null;
     }
 
+    // Unlock date validation (optional field)
+    if (currentLetter.unlockDate) {
+      const unlockTime = new Date(currentLetter.unlockDate).getTime();
+      if (Number.isNaN(unlockTime)) {
+        set({ error: 'Invalid unlock date' });
+        return null;
+      }
+      if (unlockTime <= Date.now()) {
+        set({ error: 'Unlock date must be in the future 🕐' });
+        return null;
+      }
+    }
+
     // Rate limiting: daily quota + cooldown
     const limit = canCreateLetter();
     if (!limit.allowed) {
@@ -93,6 +107,9 @@ const useLetterStore = create((set, get) => ({
         decorations: currentLetter.decorations,
         sounds_enabled: currentLetter.soundsEnabled,
         music_enabled: currentLetter.musicEnabled,
+        unlock_date: currentLetter.unlockDate
+          ? new Date(currentLetter.unlockDate).toISOString()
+          : null,
         created_at: new Date().toISOString(),
       };
 
@@ -130,6 +147,7 @@ const useLetterStore = create((set, get) => ({
         decorations: [],
         soundsEnabled: true,
         musicEnabled: false,
+        unlockDate: '',
       },
       shareLink: null,
       shareId: null,

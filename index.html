@@ -6,12 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="LoveDrop - Create and send beautiful virtual letters to your loved ones. Romantic, birthday, and friendship themed letters with animations." />
     <meta name="theme-color" content="#ff2861" />
+
+    <!-- Open Graph / link previews -->
+    <meta property="og:site_name" content="LoveDrop" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="LoveDrop - Send Beautiful Virtual Letters" />
+    <meta property="og:description" content="Create and send beautiful virtual letters to your loved ones. Romantic, birthday, and friendship themed letters with animations." />
+    <meta property="og:image" content="https://lovedrop.pages.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LoveDrop - Send Beautiful Virtual Letters" />
+    <meta name="twitter:description" content="Create and send beautiful virtual letters to your loved ones." />
+    <meta name="twitter:image" content="https://lovedrop.pages.dev/og-image.png" />
+
     <title>LoveDrop - Send Beautiful Virtual Letters</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <script>
+      // Apply saved theme before first paint (prevents light-mode flash)
+      (function () {
+        try {
+          var t = localStorage.getItem('lovedrop-theme');
+          if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

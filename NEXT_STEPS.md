@@ -72,24 +72,16 @@
   4. LetterViewer shows signatures section for group letters
 - **Effort:** ~3-4 hours
 
-#### C3. Music Sync (Lofi Background Track)
-- **What:** Toggleable background music in letters
-- **How:**
-  1. Download 1 royalty-free lofi track (see sound sources below)
-  2. Place at `public/sounds/lofi-background.mp3`
-  3. Extend `useSound.js`: add `playBackground()/pauseBackground()` using Howler loop
-  4. LetterViewer: if `letter.music_enabled`, start loop on envelope open, stop on unmount
-  5. Add floating music toggle button (🔇/🔊)
-- **Effort:** ~1-2 hours
+#### C3. Music Sync (Lofi Background Track) ✅ DONE (Sept 27, 2026)
+- **Result:** `startMusic/stopMusic/toggleMusic` in `useSound.js` (lazy-loaded, loops at 25% volume, respects global sound pref). LetterViewer starts music on envelope open, floating 🔊/🔇 button, stops on leave. Bonus: envelope-open SFX now plays too (hook existed but was never called anywhere).
+- **Tests:** 9 new (total **190 passing**).
+- **C2 skipped** by decision — add later only if users ask for group cards.
 
-#### C4. Schedule Notifications ("Open When" letters)
-- **What:** Letter can only be opened on a specific date (birthday, anniversary)
-- **How (simplest approach - no server needed):**
-  1. Add `unlock_date` column to letters table (in Create step 2, optional date picker)
-  2. In `useLetter.js`: if `unlock_date` is in future → show "locked" envelope with countdown timer
-  3. Bonus: Web Notifications API - ask permission, store in localStorage, use `setTimeout` while page open (limited - only works if tab is open)
-  4. Real scheduled emails later need a server (Supabase Edge Function + cron) - defer to later
-- **Effort:** 2 hours (countdown lock) / 4+ hours (with email notifications)
+#### C4. Scheduled "Open When" letters ✅ DONE (Sept 27, 2026)
+- **Result:** Optional 🔒 date picker in editor, `unlock_date` column, locked screen with live DD:HH:MM:SS countdown that auto-reveals the letter at zero. Past-date rejected at save with friendly error.
+- **Files:** `src/lib/lock.js`, `src/components/letter/LockedLetter.jsx`, store + editor + View wiring, `supabase-migration-unlock-date.sql` (**user must run in Supabase SQL Editor**).
+- **Tests:** 18 new (total **208 passing**).
+- **Known limit:** client-side lock (message readable via devtools). Server-side rule possible later via RLS/Edge Function.
 
 ---
 
@@ -132,17 +124,18 @@
 
 ---
 
-### Phase E: Polish (post-launch)
+### Phase E: Polish ✅ DONE (Sept 27, 2026)
 
-| Task | How | Effort |
-|------|-----|--------|
-| Accessibility audit | Check color contrast, add aria-labels, test with screen reader | Medium |
-| OG meta tags for shared links | Dynamic `<meta>` via small script reading letter on load | Small |
-| Bundle code-splitting | `React.lazy()` for games/effects → faster first load | Small |
-| Letter expiration (TTL) | Supabase cron deletes letters older than 90 days | Small |
-| Visual regression tests | Playwright screenshots compared per PR | Medium |
-| Dark mode | Tailwind `dark:` variants + toggle | Medium |
-| Remove/Use `Card.jsx` | It's built but unused - either use it or delete | Trivial |
+| Task | Result |
+|------|--------|
+| E1 OG meta tags | Static OG/Twitter tags + `og-image.png` (1200×630) + per-letter dynamic title/meta via `src/lib/seo.js` (best-effort; static scrapers see site defaults) |
+| E2 Code-splitting | Routes lazy-loaded → main bundle **144→60 KB gzip**; PageLoader fallback; tests updated to async |
+| E3 Letter TTL | `supabase-migration-expiry.sql` (pg_cron daily delete after 90 days) + share-modal notice. **User must run SQL** |
+| E4 Accessibility | Modal dialog semantics + focus, Input label↔field association, Envelope Space-key, decorative emoji `aria-hidden`, `role="main"`, reduced-motion already present. 8 a11y tests |
+| E5 Cleanup | Deleted unused `Card.jsx`; **wired TicTacToe + MemoryMatch into Gallery** (were built but never imported) |
+| E6 Dark mode | `darkMode: 'class'`, no-flash inline script, `ThemeToggle` (🌙/🌞) in 3 navs, system-preference default, `dark:` variants across pages/components, `color-scheme` for native date picker. 11 tests |
+
+**Phase E totals:** tests **208→235**, visual regression tests skipped (decided low-value).
 
 ---
 
@@ -197,20 +190,17 @@
 
 ## 🎯 RECOMMENDED ACTION ORDER (what YOU should do)
 
-### ✅ Done so far
+### ✅ ALL PHASES COMPLETE — 235/235 tests passing
 - Phase A (404, ErrorBoundary, CI) ✅
-- Phase B (Supabase + rate limiting) ✅ — 181/181 tests passing
+- Phase B (Supabase + rate limiting) ✅
+- Phase C: C1 sounds ✅ · C2 group cards **(skipped by decision)** · C3 music ✅ · C4 date lock ✅
+- Phase D: D1 GitHub ✅ · D2 Cloudflare ✅ · D3 domain **(skipped by decision)**
+- Phase E (OG tags, code-splitting, TTL, a11y, cleanup, dark mode) ✅
 
-### Next up
-1. ~~**C1** - Sound files~~ ✅ DONE
-2. **D1** - Create GitHub repo + push (I can run the commands for you)
-3. **D2** - Deploy to Cloudflare Pages (~15 min, guide above)
-
-### After launch
-4. **C3** - Music sync
-5. **C4** - Scheduled "open on date" letters
-6. **C2** - Group cards
-7. **Phase E** - Polish items
+### Final checklist for you
+1. Run SQL in Supabase (if not done): `supabase-migration-unlock-date.sql` + `supabase-migration-expiry.sql`
+2. `git add -A && git commit -m "Phase E polish" && git push` (Cloudflare rebuilds)
+3. Smoke-test live site: create letter → share → incognito → dark mode toggle → games on /gallery
 
 ---
 

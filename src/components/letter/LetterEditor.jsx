@@ -45,7 +45,7 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
 
       {/* Message */}
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
           Your Message <span className="text-primary-500">*</span>
         </label>
         <textarea
@@ -54,9 +54,9 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
           onChange={(e) => onUpdate('message', e.target.value)}
           rows={8}
           maxLength={2000}
-          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-300 bg-white text-gray-800 placeholder-gray-400 resize-none font-handwritten text-lg leading-relaxed"
+          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-300 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 resize-none font-handwritten text-lg leading-relaxed"
         />
-        <div className="flex justify-between text-xs text-gray-400">
+        <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500">
           <span>{letter.message.length}/2000 characters</span>
           <span>Pro tip: Use line breaks for a natural letter feel ✍️</span>
         </div>
@@ -64,7 +64,7 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
 
       {/* Quick templates */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
           Quick Templates
         </label>
         <div className="flex flex-wrap gap-2">
@@ -75,7 +75,7 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
                 onUpdate('title', template.title);
                 onUpdate('message', template.content);
               }}
-              className="px-3 py-1.5 text-sm rounded-full border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-all duration-200 text-gray-600 hover:text-primary-600"
+              className="px-3 py-1.5 text-sm rounded-full border border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:bg-primary-50 transition-all duration-200 text-gray-600 dark:text-gray-300 hover:text-primary-600"
             >
               {template.title}
             </button>
@@ -85,7 +85,7 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
 
       {/* Decorations */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
           Add Decorations {theme.emoji}
         </label>
         <div className="flex flex-wrap gap-2">
@@ -101,7 +101,7 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
                   ${
                     isSelected
                       ? 'border-primary-400 bg-primary-50 scale-110 shadow-md'
-                      : 'border-gray-200 hover:border-gray-300 hover:scale-105'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:scale-105'
                   }
                 `}
                 title={decoration.label}
@@ -114,7 +114,7 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
           })}
         </div>
         {letter.decorations.length > 0 && (
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
             {letter.decorations.length} decoration(s) selected
           </p>
         )}
@@ -122,9 +122,9 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
 
       {/* Settings */}
       <div className="space-y-3">
-        <label className="block text-sm font-medium text-gray-700">Settings</label>
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-          <span className="text-sm text-gray-600">🔊 Sound effects</span>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Settings</label>
+        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-xl">
+          <span className="text-sm text-gray-600 dark:text-gray-300">🔊 Sound effects</span>
           <button
             onClick={() => onUpdate('soundsEnabled', !letter.soundsEnabled)}
             className={`
@@ -137,15 +137,15 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
           >
             <span
               className={`
-                absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-all duration-300
+                absolute top-0.5 w-5 h-5 bg-white dark:bg-gray-900 rounded-full shadow transition-all duration-300
                 ${letter.soundsEnabled ? 'left-6.5 left-[26px]' : 'left-0.5'}
               `}
             />
           </button>
         </div>
 
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-          <span className="text-sm text-gray-600">🎵 Background music</span>
+        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-xl">
+          <span className="text-sm text-gray-600 dark:text-gray-300">🎵 Background music</span>
           <button
             onClick={() => onUpdate('musicEnabled', !letter.musicEnabled)}
             className={`
@@ -158,11 +158,40 @@ export default function LetterEditor({ letter, onUpdate, onToggleDecoration }) {
           >
             <span
               className={`
-                absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-all duration-300
+                absolute top-0.5 w-5 h-5 bg-white dark:bg-gray-900 rounded-full shadow transition-all duration-300
                 ${letter.musicEnabled ? 'left-6.5 left-[26px]' : 'left-0.5'}
               `}
             />
           </button>
+        </div>
+
+        {/* Scheduled unlock (optional) */}
+        <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-xl space-y-2">
+          <label htmlFor="unlock-date" className="text-sm text-gray-600 dark:text-gray-300 block">
+            🔒 Lock until date{' '}
+            <span className="text-gray-400 dark:text-gray-500">(optional — letter stays sealed until then)</span>
+          </label>
+          <input
+            id="unlock-date"
+            type="datetime-local"
+            value={letter.unlockDate}
+            onChange={(e) => onUpdate('unlockDate', e.target.value)}
+            className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 text-sm"
+          />
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400 dark:text-gray-500">
+              e.g., their birthday morning 🎂
+            </span>
+            {letter.unlockDate && (
+              <button
+                type="button"
+                onClick={() => onUpdate('unlockDate', '')}
+                className="text-xs text-primary-600 hover:underline"
+              >
+                Clear lock
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

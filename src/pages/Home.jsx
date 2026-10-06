@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { themes } from '../themes';
 import Button from '../components/ui/Button';
+import ThemeToggle from '../components/ui/ThemeToggle';
 import HeartParticles from '../components/effects/HeartParticles';
 
 /**
@@ -8,7 +9,7 @@ import HeartParticles from '../components/effects/HeartParticles';
  */
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -19,9 +20,10 @@ export default function Home() {
             </span>
           </Link>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link
               to="/gallery"
-              className="text-sm text-gray-600 hover:text-primary-500 transition-colors hidden md:block"
+              className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 hover:text-primary-500 transition-colors hidden md:block"
             >
               Gallery
             </Link>
@@ -55,7 +57,7 @@ export default function Home() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.1s' }}>
               Create stunning virtual letters with animations, effects, and music.
               Perfect for long-distance relationships, birthdays, and best friendships.
             </p>
@@ -78,28 +80,28 @@ export default function Home() {
             <div className="flex justify-center gap-8 mt-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <div className="text-center">
                 <p className="text-3xl font-bold text-primary-500">3</p>
-                <p className="text-sm text-gray-500">Themes</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Themes</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-primary-500">10+</p>
-                <p className="text-sm text-gray-500">Effects</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Effects</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-primary-500">∞</p>
-                <p className="text-sm text-gray-500">Love</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Love</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-gray-400">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-gray-400 dark:text-gray-500">
           <span className="text-2xl">↓</span>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-12">
             How It <span className="text-gradient">Works</span>
@@ -126,13 +128,13 @@ export default function Home() {
                 desc: 'Get a unique link and send it to your loved one instantly',
               },
             ].map((item) => (
-              <div key={item.step} className="text-center p-6 rounded-2xl hover:bg-gray-50 transition-all duration-300">
+              <div key={item.step} className="text-center p-6 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center text-3xl">
                   {item.emoji}
                 </div>
                 <div className="text-xs font-bold text-primary-500 mb-2">STEP {item.step}</div>
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm">{item.desc}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -140,12 +142,12 @@ export default function Home() {
       </section>
 
       {/* Themes Preview */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-4">
             Choose Your <span className="text-gradient">Occasion</span>
           </h2>
-          <p className="text-center text-gray-500 mb-12 max-w-xl mx-auto">
+          <p className="text-center text-gray-500 dark:text-gray-400 mb-12 max-w-xl mx-auto">
             Each theme comes with its own unique animations, effects, and sound
           </p>
 
@@ -164,7 +166,7 @@ export default function Home() {
                     {theme.effects.map((effect) => (
                       <span
                         key={effect}
-                        className="text-xs px-2 py-1 rounded-full bg-white/50 backdrop-blur-sm"
+                        className="text-xs px-2 py-1 rounded-full bg-white dark:bg-gray-900/50 backdrop-blur-sm"
                         style={{ color: theme.colors.text }}
                       >
                         {effect}
@@ -179,7 +181,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-12">
             Everything You <span className="text-gradient">Need</span>
@@ -198,10 +200,10 @@ export default function Home() {
             ].map((feature) => (
               <div
                 key={feature.label}
-                className="text-center p-4 rounded-2xl border border-gray-100 hover:border-primary-200 hover:bg-primary-50/50 transition-all duration-300"
+                className="text-center p-4 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-primary-200 hover:bg-primary-50/50 transition-all duration-300"
               >
                 <span className="text-3xl block mb-2">{feature.emoji}</span>
-                <p className="text-sm font-medium text-gray-700">{feature.label}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{feature.label}</p>
               </div>
             ))}
           </div>
@@ -219,7 +221,7 @@ export default function Home() {
             Create a beautiful virtual letter in under 2 minutes. No sign-up, no cost, just love.
           </p>
           <Link to="/create">
-            <button className="px-8 py-4 bg-white text-primary-600 font-bold text-lg rounded-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+            <button className="px-8 py-4 bg-white dark:bg-gray-900 text-primary-600 font-bold text-lg rounded-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
               💌 Create Your Letter Now
             </button>
           </Link>
@@ -227,7 +229,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-gray-900 text-gray-400">
+      <footer className="py-8 bg-gray-900 text-gray-400 dark:text-gray-500">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <span className="text-xl">💌</span>
