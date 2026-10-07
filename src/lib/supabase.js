@@ -54,6 +54,24 @@ export async function fetchLetter(shortId) {
 }
 
 /**
+ * Classify an error returned by saveLetter()/fetchLetter() so callers can
+ * tell "the cloud said no" apart from "there is no such letter".
+ *
+ * @param {any} error - whatever the Supabase helpers returned
+ * @returns {null|'unconfigured'|'not-found'|'server'}
+ *   unconfigured - no env keys (demo/local mode)
+ *   not-found    - server answered, but no such row (PGRST116 from .single())
+ *   server       - network/DB/schema failure, worth retrying
+ */
+export function classifyError(error) {
+  if (!error) return null;
+  if (error === 'Supabase not configured') return 'unconfigured';
+  const code = typeof error === 'object' && error.code ? error.code : '';
+  if (code === 'PGRST116') return 'not-found';
+  return 'server';
+}
+
+/**
  * Generate a random short ID for shareable links
  * @returns {string} - 8 character alphanumeric ID
  */

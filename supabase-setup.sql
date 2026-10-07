@@ -18,6 +18,7 @@ CREATE TABLE letters (
   decorations JSONB DEFAULT '[]',
   sounds_enabled BOOLEAN DEFAULT true,
   music_enabled BOOLEAN DEFAULT false,
+  unlock_date TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 

@@ -32,6 +32,9 @@ export default function Create() {
     isSaving,
     error,
     reset,
+    localOnly,
+    saveWarning,
+    saveWarningDetail,
   } = useLetterStore();
 
   // Set theme from URL params
@@ -360,9 +363,22 @@ export default function Create() {
               {copied ? '✓ Copied!' : 'Copy'}
             </button>
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500">
-            ⏳ This letter stays live for 90 days, then auto-expires
-          </p>
+          {/* Device-only warning: link still issued, but sender must know */}
+          {localOnly && saveWarning && (
+            <div
+              role="status"
+              title={saveWarningDetail || undefined}
+              className="p-3 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 text-sm text-amber-800 dark:text-amber-200 text-left"
+            >
+              ⚠️ {saveWarning}
+            </div>
+          )}
+
+          {!localOnly && (
+            <p className="text-xs text-gray-400 dark:text-gray-500">
+              ⏳ This letter stays live for 90 days, then auto-expires
+            </p>
+          )}
 
           {/* Actions */}
           <div className="flex flex-col gap-3 pt-2">

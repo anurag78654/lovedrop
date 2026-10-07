@@ -211,4 +211,18 @@ describe('Create flow - Step 3: Preview & share', () => {
     fireEvent.click(screen.getByText(/Edit Letter/));
     expect(screen.getByText(/Write Your Letter/)).toBeInTheDocument();
   });
+
+  it('warns in the share modal when the link is device-only', async () => {
+    // Supabase is not configured in tests -> local fallback path
+    goToStep3();
+    fireEvent.click(screen.getByText(/Create Share Link/));
+
+    const warning = await screen.findByText(/only works in this browser/i, {}, { timeout: 5000 });
+    expect(warning).toBeInTheDocument();
+    expect(warning.closest('[role="status"]')).toBeTruthy();
+
+    // Sharing is never blocked: the link is still there
+    const linkInput = document.querySelector('input[readonly]');
+    expect(linkInput.value).toMatch(/\/letter\/[A-Za-z0-9]{8}$/);
+  });
 });

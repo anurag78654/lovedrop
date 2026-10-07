@@ -12,7 +12,7 @@ import Button from '../components/ui/Button';
  */
 export default function View() {
   const { id } = useParams();
-  const { letter, loading, error } = useLetter(id);
+  const { letter, loading, error, errorType, reload } = useLetter(id);
 
   // Per-letter page title + OG tags; restore defaults on leave
   useEffect(() => {
@@ -26,6 +26,28 @@ export default function View() {
         <div className="text-5xl mb-4 animate-bounce">💌</div>
         <p className="text-gray-500 dark:text-gray-400">Opening your letter...</p>
         <div className="mt-4 w-8 h-8 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // Server unreachable (offline, paused project, schema error) - NOT the
+  // same as a missing letter, so offer a retry instead of a dead end.
+  if (errorType === 'server') {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
+        <div className="text-6xl mb-4">📡</div>
+        <h1 className="text-2xl font-display font-bold text-gray-800 dark:text-gray-100 mb-2">
+          Can't reach LoveDrop
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400 text-center mb-6 max-w-md">
+          {error}
+        </p>
+        <div className="flex gap-4">
+          <Button onClick={reload}>🔄 Try Again</Button>
+          <Link to="/">
+            <Button variant="secondary">🏠 Go Home</Button>
+          </Link>
+        </div>
       </div>
     );
   }

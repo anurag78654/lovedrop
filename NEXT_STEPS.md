@@ -1,7 +1,7 @@
 # LoveDrop - Remaining Tasks & Action Plan
 
-**Last updated:** September 26, 2026
-**Current status:** Core app built, 157/157 tests passing, build works
+**Last updated:** October 7, 2026
+**Current status:** 254/254 tests passing, build works
 
 ---
 
@@ -139,6 +139,41 @@
 
 ---
 
+### 🚨 Incident fix (Oct 7, 2026): shared links showing "Letter not found"
+
+**What users hit:** A shares a link → B opens it → "Letter Not Found".
+
+**Two causes:**
+
+1. **`unlock_date` column missing in Supabase** (the C4 SQL was never run).
+   Phase E shipped Oct 6 and every insert now sends `unlock_date`, so PostgREST
+   rejected with `PGRST204` → `letterStore` silently saved to localStorage →
+   the share link only worked in A's browser. Last successful DB write: Oct 3.
+2. **Supabase project was paused** (free-tier inactivity), so reads failed too.
+   Resumed Oct 7.
+
+**Fixes made (code):**
+
+| File | Change |
+|------|--------|
+| `src/lib/supabase.js` | `classifyError()` → `unconfigured` / `not-found` / `server` |
+| `src/store/letterStore.js` | Never blocks sharing: cloud failure still issues a link, but sets `localOnly` + `saveWarning` (+ raw detail) |
+| `src/pages/Create.jsx` | Amber `role="status"` warning in share modal when the link is device-only; hides the "90 days" note for local saves |
+| `src/hooks/useLetter.js` | Distinguishes *server unreachable* (`errorType:'server'`) from *no such letter* (`'not-found'`) |
+| `src/pages/View.jsx` | New "Can't reach LoveDrop" screen with **Try Again** (`reload()`), instead of a false "Letter Not Found" |
+| `supabase-setup.sql` | `unlock_date TIMESTAMPTZ` added to CREATE TABLE (fresh installs can't repeat this) |
+
+**Tests:** 235 → **254** (new: `unit/cloudSave.test.js`, `unit/useLetter.test.jsx`, `integration/viewServerError.test.jsx`, +1 in `createFlow`).
+
+**⚠️ Still required from you:**
+1. Run `supabase-migration-unlock-date.sql` in Supabase SQL Editor — **until then every cloud save still fails** (links stay device-only, with the new warning).
+2. Run `supabase-migration-expiry.sql` (pg_cron) if not done — paused projects stop cron.
+3. `git add -A && git commit && git push` when you're happy with it.
+4. Letters created Oct 6 → now (and during the pause) exist only in their
+   creator's browser — those senders must recreate them; nothing is recoverable.
+
+---
+
 ## 🔊 SOUND FILES - Complete Guide
 
 ### Current status
@@ -190,7 +225,7 @@
 
 ## 🎯 RECOMMENDED ACTION ORDER (what YOU should do)
 
-### ✅ ALL PHASES COMPLETE — 235/235 tests passing
+### ✅ ALL PHASES COMPLETE — 254/254 tests passing
 - Phase A (404, ErrorBoundary, CI) ✅
 - Phase B (Supabase + rate limiting) ✅
 - Phase C: C1 sounds ✅ · C2 group cards **(skipped by decision)** · C3 music ✅ · C4 date lock ✅
@@ -198,9 +233,10 @@
 - Phase E (OG tags, code-splitting, TTL, a11y, cleanup, dark mode) ✅
 
 ### Final checklist for you
-1. Run SQL in Supabase (if not done): `supabase-migration-unlock-date.sql` + `supabase-migration-expiry.sql`
-2. `git add -A && git commit -m "Phase E polish" && git push` (Cloudflare rebuilds)
-3. Smoke-test live site: create letter → share → incognito → dark mode toggle → games on /gallery
+1. **Run `supabase-migration-unlock-date.sql`** in Supabase SQL Editor (unblocks cloud saves — the real fix for "Letter not found")
+2. Run `supabase-migration-expiry.sql` (if not done) — pg_cron daily 90-day cleanup
+3. `git add -A && git commit -m "Fix share links: surface cloud-save failures + server retry" && git push` (Cloudflare rebuilds)
+4. Smoke-test live site: create letter → open link **in incognito** → confirm no ⚠️ warning → dark mode toggle → games on /gallery
 
 ---
 

@@ -1,6 +1,17 @@
 import { create } from 'zustand';
-import { generateShortId, saveLetter } from '../lib/supabase';
+import { generateShortId, saveLetter, classifyError } from '../lib/supabase';
 import { canCreateLetter, recordLetterCreated, getLimitMessage } from '../lib/rateLimit';
+
+/**
+ * User-facing warning for letters that could not reach the cloud.
+ * We never block the share link - we label it instead.
+ */
+function localOnlyWarning(kind) {
+  if (kind === 'unconfigured') {
+    return 'Offline demo mode — this link only works in this browser: the letter was saved here, not in the cloud.';
+  }
+  return "We couldn't reach the cloud just now, so this link only works in this browser. Try creating it again in a moment.";
+}
 
 /**
  * Global letter state store using Zustand
@@ -22,6 +33,11 @@ const useLetterStore = create((set, get) => ({
   // Generated share link
   shareLink: null,
   shareId: null,
+
+  // Save provenance: true when the letter only lives in this browser
+  localOnly: false,
+  saveWarning: null,
+  saveWarningDetail: null,
 
   // UI state
   isCreating: false,
@@ -94,44 +110,70 @@ const useLetterStore = create((set, get) => ({
 
     set({ isSaving: true, error: null });
 
+    const shortId = generateShortId();
+
+    const letterData = {
+      short_id: shortId,
+      sender_name: currentLetter.senderName,
+      recipient_name: currentLetter.recipientName,
+      title: currentLetter.title,
+      message: currentLetter.message,
+      theme: currentLetter.theme,
+      decorations: currentLetter.decorations,
+      sounds_enabled: currentLetter.soundsEnabled,
+      music_enabled: currentLetter.musicEnabled,
+      unlock_date: currentLetter.unlockDate
+        ? new Date(currentLetter.unlockDate).toISOString()
+        : null,
+      created_at: new Date().toISOString(),
+    };
+
+    const shareUrl = `${window.location.origin}/letter/${shortId}`;
+
+    /**
+     * Cloud unreachable / rejected the write. We still hand over a share
+     * link (sharing is the product), but flag it as device-only so the
+     * sender can see the truth instead of silently sending a dead link.
+     */
+    const finishLocally = (kind, detail) => {
+      try {
+        localStorage.setItem(`letter_${shortId}`, JSON.stringify(letterData));
+      } catch {
+        // storage blocked/full - link is still issued, warning explains it
+      }
+      recordLetterCreated();
+      set({
+        shareLink: shareUrl,
+        shareId: shortId,
+        isSaving: false,
+        error: null,
+        localOnly: true,
+        saveWarning: localOnlyWarning(kind),
+        saveWarningDetail: detail || null,
+      });
+      return shareUrl;
+    };
+
     try {
-      const shortId = generateShortId();
-
-      const letterData = {
-        short_id: shortId,
-        sender_name: currentLetter.senderName,
-        recipient_name: currentLetter.recipientName,
-        title: currentLetter.title,
-        message: currentLetter.message,
-        theme: currentLetter.theme,
-        decorations: currentLetter.decorations,
-        sounds_enabled: currentLetter.soundsEnabled,
-        music_enabled: currentLetter.musicEnabled,
-        unlock_date: currentLetter.unlockDate
-          ? new Date(currentLetter.unlockDate).toISOString()
-          : null,
-        created_at: new Date().toISOString(),
-      };
-
-      const { data, error } = await saveLetter(letterData);
+      const { error } = await saveLetter(letterData);
 
       if (error) {
-        // If Supabase not configured, save locally
-        const localKey = `letter_${shortId}`;
-        localStorage.setItem(localKey, JSON.stringify(letterData));
-        const shareUrl = `${window.location.origin}/letter/${shortId}`;
-        recordLetterCreated();
-        set({ shareLink: shareUrl, shareId: shortId, isSaving: false });
-        return shareUrl;
+        return finishLocally(classifyError(error), error.message || String(error));
       }
 
-      const shareUrl = `${window.location.origin}/letter/${shortId}`;
       recordLetterCreated();
-      set({ shareLink: shareUrl, shareId: shortId, isSaving: false });
+      set({
+        shareLink: shareUrl,
+        shareId: shortId,
+        isSaving: false,
+        error: null,
+        localOnly: false,
+        saveWarning: null,
+        saveWarningDetail: null,
+      });
       return shareUrl;
     } catch (err) {
-      set({ error: 'Failed to save letter. Please try again.', isSaving: false });
-      return null;
+      return finishLocally('server', err?.message || String(err));
     }
   },
 
@@ -151,6 +193,9 @@ const useLetterStore = create((set, get) => ({
       },
       shareLink: null,
       shareId: null,
+      localOnly: false,
+      saveWarning: null,
+      saveWarningDetail: null,
       isCreating: false,
       isSaving: false,
       error: null,
