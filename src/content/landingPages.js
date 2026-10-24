@@ -233,6 +233,295 @@ export const landingPages = {
     ],
     related: ['long-distance', 'open-when', 'letter-with-music'],
   },
+
+  'love-letter-maker': {
+    slug: 'love-letter-maker',
+    metaTitle: 'Free Love Letter Maker — Create Online | LoveDrop',
+    metaDescription:
+      'Create a love letter online for free. Pick a romantic theme, add music, and send a beautiful animated letter with one link. No sign-up needed.',
+    eyebrow: 'Write it beautifully',
+    h1: 'Free Love Letter Maker',
+    intro: [
+      'A love letter should feel like you — not like a template. LoveDrop gives you romantic designs, handwritten-style fonts, and soft animations so your words arrive looking as special as they feel.',
+      'Type your message, choose a theme, add a song if you like, and share one link. No design skills, no account, and no cost — just a letter that opens like a gift.',
+    ],
+    highlights: [
+      {
+        icon: '💖',
+        title: 'Romantic by default',
+        text: 'Rose-tinted paper, floating hearts, and an envelope that opens with a flourish.',
+      },
+      {
+        icon: '✍️',
+        title: 'Your words, beautifully set',
+        text: 'Handwritten-style typography makes even a short note feel personal.',
+      },
+      {
+        icon: '⏱️',
+        title: 'Two minutes, start to send',
+        text: 'Three simple steps — theme, message, share. Nothing to install or configure.',
+      },
+    ],
+    ideasTitle: 'What to put in a love letter',
+    ideas: [
+      'The moment you knew you liked them — be specific, not generic.',
+      'One ordinary thing they do that you never want to lose.',
+      'A memory only the two of you share, told in detail.',
+      'Something you are looking forward to doing together.',
+      'A promise you can actually keep — small and sincere beats grand.',
+      'The sentence you have been too shy to say out loud.',
+    ],
+    faqs: [
+      {
+        q: 'Is the love letter maker really free?',
+        a: 'Yes. Writing, decorating, and sending a letter costs nothing, with no account, no watermark, and no limit on how many letters you create.',
+      },
+      {
+        q: 'Can I add music to my love letter?',
+        a: 'Yes — pick a romantic or calm soundtrack and it will play softly when the envelope is opened. The reader can mute it at any time.',
+      },
+      {
+        q: 'How does my partner receive the letter?',
+        a: 'You get a private link. Share it by message, email, or any app — it opens in a normal browser on any phone or computer.',
+      },
+      {
+        q: 'How long does a letter stay online?',
+        a: 'Letters are stored for up to 90 days, so it is best to share your link soon after creating it. You can always write a new one.',
+      },
+    ],
+    related: ['letter-with-music', 'long-distance', 'valentine'],
+  },
+
+  birthday: {
+    slug: 'birthday',
+    metaTitle: 'Free Birthday Letter Online — Send Yours | LoveDrop',
+    metaDescription:
+      'Send a free birthday letter online with confetti, animations, and music. Add a scratch-to-reveal surprise and share it with one simple link.',
+    eyebrow: 'Happy birthday, beautifully',
+    h1: 'Free Birthday Letter Online',
+    intro: [
+      'Birthday cards get read once and lost in a drawer. A birthday letter is something your person can open again on a hard day, years later — and LoveDrop makes it feel like a celebration from the very first tap.',
+      'Confetti bursts when the envelope opens, a scratch card hides a little surprise, and you can schedule the letter to unlock on the morning of their birthday so the first thing they see is you.',
+    ],
+    highlights: [
+      {
+        icon: '🎉',
+        title: 'Confetti on open',
+        text: 'The envelope bursts into celebration — no wrapping paper required.',
+      },
+      {
+        icon: '🎁',
+        title: 'Scratch-to-reveal surprise',
+        text: 'Hide a message, a memory, or a promise under a scratch card.',
+      },
+      {
+        icon: '🌅',
+        title: 'Opens on their birthday',
+        text: 'Pick the date and time so it is waiting for them at midnight or breakfast.',
+      },
+    ],
+    ideasTitle: 'Birthday letter ideas that actually land',
+    ideas: [
+      'The first birthday you spent together, in as much detail as you remember.',
+      'Three things you admire about them that have nothing to do with achievements.',
+      'A list of small wishes for the year ahead — specific and kind.',
+      'An inside joke only the two of you will understand.',
+      'A promise for the next year: one thing you will do together.',
+      'A thank-you for something they did that they probably forgot.',
+    ],
+    faqs: [
+      {
+        q: 'Can I schedule a birthday letter in advance?',
+        a: 'Yes. Choose the unlock date and time when you create the letter — for example, 7 AM on their birthday. Until then they see a sealed envelope.',
+      },
+      {
+        q: 'Is the birthday letter free?',
+        a: 'Completely free, with no account needed. Themes, animations, the scratch card, and music are all included.',
+      },
+      {
+        q: 'Does it work for a friend, not just a partner?',
+        a: 'Yes. There is a friendship theme made for best friends, and you can write to anyone — family, coworkers, or a crush.',
+      },
+      {
+        q: 'What if their birthday is soon?',
+        a: 'It takes about two minutes to create a letter, so a same-day birthday letter is absolutely possible.',
+      },
+    ],
+    related: ['friendship', 'letter-with-music', 'open-when'],
+  },
+
+  friendship: {
+    slug: 'friendship',
+    metaTitle: 'Letter for Your Best Friend — Free Online | LoveDrop',
+    metaDescription:
+      'Send a free friendship letter online with playful flip cards and animations. Celebrate your best friend with a letter they can keep forever.',
+    h1: 'Letters for Your Best Friend',
+    intro: [
+      'Friendships rarely get the words they deserve. A friendship letter is a small, specific way to say "I noticed" — and LoveDrop makes it playful rather than formal, with a friendship theme built for the people who know you best.',
+      'Open the envelope and a set of flip cards appears, each hiding a message. Write your letter, add a song from the era of your friendship, and send one link they can keep.',
+    ],
+    highlights: [
+      {
+        icon: '🃏',
+        title: 'Flip cards included',
+        text: 'Hide short messages on cards that turn over when tapped — fun to explore.',
+      },
+      {
+        icon: '😄',
+        title: 'Playful, not formal',
+        text: 'A friendship theme with warm colors and animations made for laughing together.',
+      },
+      {
+        icon: '📎',
+        title: 'Easy to keep',
+        text: 'One link they can bookmark and reread whenever they need it.',
+      },
+    ],
+    ideasTitle: 'Friendship letter ideas',
+    ideas: [
+      'How you met — and what you thought of them at first.',
+      'Your favorite inside joke, written out so it survives.',
+      'The time they showed up for you when they did not have to.',
+      'Something they taught you without realizing it.',
+      'A list of things you want to do together this year.',
+      'The honest reason you are glad they are in your life.',
+    ],
+    faqs: [
+      {
+        q: 'Is the friendship letter free?',
+        a: 'Yes — free, no sign-up, no app. The flip cards, themes, and music are all included.',
+      },
+      {
+        q: 'Can I send it for a birthday or a random day?',
+        a: 'Both. Many people send friendship letters for birthdays, but a letter on an ordinary Tuesday often means even more.',
+      },
+      {
+        q: 'Can I schedule it to open on a specific day?',
+        a: 'Yes. Set an unlock date and the letter stays sealed until that moment — useful for birthdays and anniversaries of your friendship.',
+      },
+      {
+        q: 'Can I send it anonymously?',
+        a: 'You can use a nickname instead of your real name, though most friendship letters land best with your name on them.',
+      },
+    ],
+    related: ['birthday', 'open-when', 'letter-with-music'],
+  },
+
+  'sorry-letter': {
+    slug: 'sorry-letter',
+    metaTitle: 'Free Sorry Letter Online — Apologize | LoveDrop',
+    metaDescription:
+      'Write a sincere sorry letter online for free. Say what you feel, add a soft soundtrack, and share a heartfelt apology with one private link.',
+    eyebrow: 'Say it sincerely',
+    h1: 'Write a Sorry Letter Online',
+    intro: [
+      'Some apologies are too important to send as a rushed text. Writing a letter gives you time to choose your words carefully — and gives the other person space to read them without pressure to reply immediately.',
+      'LoveDrop keeps the tone calm and honest: soft paper styling, quiet optional music, and a private link. No templates full of excuses — just your words, thought through.',
+    ],
+    highlights: [
+      {
+        icon: '🤍',
+        title: 'A calm setting',
+        text: 'Simple, quiet design that keeps the focus on what you are saying.',
+      },
+      {
+        icon: '🎧',
+        title: 'Optional soft music',
+        text: 'A gentle soundtrack can soften the moment — or leave it silent and let the words stand.',
+      },
+      {
+        icon: '🔒',
+        title: 'Private by nature',
+        text: 'The letter is not indexed and is only visible to people with the link.',
+      },
+    ],
+    ideasTitle: 'How to write an apology that helps',
+    ideas: [
+      'Name the specific thing you did — vague apologies feel like avoidance.',
+      'Acknowledge how it affected them, in their terms, not yours.',
+      'Avoid "but" — one excuse can undo a sincere paragraph.',
+      'Say what you will do differently, concretely.',
+      'Ask for what you need (time, a conversation) without demanding forgiveness.',
+      'Keep it short enough to be read in one calm sitting.',
+    ],
+    faqs: [
+      {
+        q: 'Should I apologize in a letter instead of in person?',
+        a: 'A letter works best as a complement to a real conversation, not a replacement — especially for serious hurts. Use it to gather your thoughts, then talk.',
+      },
+      {
+        q: 'Is the sorry letter private?',
+        a: 'Yes. Letters are excluded from search engines and only people with the link can open them.',
+      },
+      {
+        q: 'Can I send it anonymously?',
+        a: 'You can use a nickname, but an apology usually carries more weight when the person knows it is you.',
+      },
+      {
+        q: 'Is it free?',
+        a: 'Yes, free and without an account — write, share the link, and they can read it whenever they are ready.',
+      },
+    ],
+    related: ['anonymous-letter', 'long-distance', 'open-when'],
+  },
+
+  valentine: {
+    slug: 'valentine',
+    metaTitle: 'Free Valentine Letter Online — Send Yours | LoveDrop',
+    metaDescription:
+      "Create a free Valentine's letter online with romantic themes, floating hearts, music, and a scratch-to-reveal surprise. Send it with one link.",
+    eyebrow: "Valentine's Day",
+    h1: "Free Valentine's Letter Online",
+    intro: [
+      "Flowers wilt and chocolates disappear. A Valentine's letter keeps the words — the part that actually matters — and LoveDrop helps you make it feel like a keepsake rather than a card.",
+      'Choose the romantic theme, add a song that belongs to the two of you, hide a surprise under a scratch card, and schedule the letter to unlock on the morning of February 14th.',
+    ],
+    highlights: [
+      {
+        icon: '💘',
+        title: 'Romantic theme',
+        text: 'Rose paper, floating hearts, and an envelope that opens with a soft flourish.',
+      },
+      {
+        icon: '🎶',
+        title: 'Your song',
+        text: 'Attach the track that reminds you of them — it plays as the letter opens.',
+      },
+      {
+        icon: '🌹',
+        title: 'Ready before the 14th',
+        text: 'Write it today, schedule the unlock, and let Valentine’s morning take care of itself.',
+      },
+    ],
+    ideasTitle: "Valentine's letter ideas",
+    ideas: [
+      'The story of your first date, told like it happened yesterday.',
+      'Five small things you love about them that they do not know you notice.',
+      'What you want this year together to look like.',
+      'A playlist in words — the songs that mean "us".',
+      'Ask them out again, properly, with a time and a place.',
+      'One sentence you would want them to remember on a bad day.',
+    ],
+    faqs: [
+      {
+        q: 'Can I schedule my Valentine letter to open on February 14th?',
+        a: 'Yes. Set the unlock date and time — for example 8 AM on Valentine’s Day — and the envelope stays sealed until then.',
+      },
+      {
+        q: 'Is the Valentine letter free?',
+        a: 'Yes, completely free. No account, no payment, no limit on how many letters you create.',
+      },
+      {
+        q: 'Can I send an anonymous Valentine?',
+        a: 'Yes — use a nickname instead of your name, and the recipient will only know what you choose to tell them.',
+      },
+      {
+        q: 'What if I remember on February 14th itself?',
+        a: 'A letter takes about two minutes to make, so a same-day Valentine is completely doable — though scheduling ahead is more relaxed.',
+      },
+    ],
+    related: ['love-letter-maker', 'letter-with-music', 'long-distance'],
+  },
 };
 
 export const landingSlugs = Object.keys(landingPages);

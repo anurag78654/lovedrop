@@ -41,6 +41,11 @@ function App() {
           <Route path="/letter-with-music" element={<Landing slug="letter-with-music" />} />
           <Route path="/open-when" element={<Landing slug="open-when" />} />
           <Route path="/anonymous-letter" element={<Landing slug="anonymous-letter" />} />
+          <Route path="/love-letter-maker" element={<Landing slug="love-letter-maker" />} />
+          <Route path="/birthday" element={<Landing slug="birthday" />} />
+          <Route path="/friendship" element={<Landing slug="friendship" />} />
+          <Route path="/sorry-letter" element={<Landing slug="sorry-letter" />} />
+          <Route path="/valentine" element={<Landing slug="valentine" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

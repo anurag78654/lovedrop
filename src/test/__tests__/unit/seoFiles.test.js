@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { landingSlugs } from '../../../content/landingPages';
 
 const publicPath = (file) => resolve(process.cwd(), 'public', file);
 
@@ -18,10 +19,11 @@ describe('SEO public files', () => {
     expect(xml).toContain('https://lovedrop.pages.dev/');
     expect(xml).toContain('https://lovedrop.pages.dev/create');
     expect(xml).toContain('https://lovedrop.pages.dev/gallery');
-    expect(xml).toContain('https://lovedrop.pages.dev/long-distance');
-    expect(xml).toContain('https://lovedrop.pages.dev/open-when');
-    expect(xml).toContain('https://lovedrop.pages.dev/letter-with-music');
-    expect(xml).toContain('https://lovedrop.pages.dev/anonymous-letter');
+
+    landingSlugs.forEach((slug) => {
+      expect(xml).toContain(`https://lovedrop.pages.dev/${slug}`);
+    });
+
     expect(xml).not.toContain('/letter/');
   });
 });

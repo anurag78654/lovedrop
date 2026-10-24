@@ -244,9 +244,12 @@ export default function Home() {
             <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
           </div>
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mt-3 text-xs opacity-70">
+            <Link to="/love-letter-maker" className="hover:text-white transition-colors">Love letter maker</Link>
             <Link to="/long-distance" className="hover:text-white transition-colors">Long-distance letters</Link>
             <Link to="/open-when" className="hover:text-white transition-colors">Open when letters</Link>
             <Link to="/letter-with-music" className="hover:text-white transition-colors">Letters with music</Link>
+            <Link to="/valentine" className="hover:text-white transition-colors">Valentine's letters</Link>
+            <Link to="/birthday" className="hover:text-white transition-colors">Birthday letters</Link>
             <Link to="/anonymous-letter" className="hover:text-white transition-colors">Anonymous letters</Link>
           </div>
           <p className="text-xs mt-4 opacity-50">
