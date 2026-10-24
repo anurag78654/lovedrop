@@ -1,8 +1,9 @@
-import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
+import { setCanonical } from './lib/seo.js';
 
 // Route-level code splitting: only Home + 404 load initially.
 // Create/View/Gallery (with effects, games, howler usage) load on demand.
@@ -20,6 +21,13 @@ function PageLoader() {
 }
 
 function App() {
+  const { pathname } = useLocation();
+
+  // Keep the canonical URL in sync with the current route (SEO).
+  useEffect(() => {
+    setCanonical(pathname);
+  }, [pathname]);
+
   return (
     <ErrorBoundary>
       <Suspense fallback={<PageLoader />}>

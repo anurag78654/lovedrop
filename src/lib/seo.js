@@ -16,6 +16,8 @@ const DEFAULTS = {
     'Create and send beautiful virtual letters to your loved ones.',
 };
 
+const SITE_URL = 'https://lovedrop.pages.dev';
+
 function upsertMeta(selectorAttr, key, content) {
   let el = document.querySelector(`meta[${selectorAttr}="${key}"]`);
   if (!el) {
@@ -26,8 +28,31 @@ function upsertMeta(selectorAttr, key, content) {
   el.setAttribute('content', content);
 }
 
+function removeMeta(selectorAttr, key) {
+  const el = document.querySelector(`meta[${selectorAttr}="${key}"]`);
+  if (el) el.remove();
+}
+
+/**
+ * Point the canonical link at the current route (SEO: tells Google
+ * which URL is the "official" version of this page).
+ * @param {string} pathname e.g. "/create"
+ */
+export function setCanonical(pathname) {
+  const href = `${SITE_URL}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
+  let link = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    document.head.appendChild(link);
+  }
+  link.setAttribute('href', href);
+  upsertMeta('property', 'og:url', href);
+}
+
 /**
  * Set page title + OG/Twitter tags for a letter.
+ * Letter pages are marked noindex (private content).
  * @param {Object} letter
  */
 export function applyLetterMeta(letter) {
@@ -46,6 +71,7 @@ export function applyLetterMeta(letter) {
   upsertMeta('property', 'og:description', description);
   upsertMeta('name', 'twitter:title', title);
   upsertMeta('name', 'twitter:description', description);
+  upsertMeta('name', 'robots', 'noindex, nofollow');
 }
 
 /**
@@ -57,4 +83,5 @@ export function resetMeta() {
   upsertMeta('property', 'og:description', DEFAULTS.description);
   upsertMeta('name', 'twitter:title', DEFAULTS.title);
   upsertMeta('name', 'twitter:description', DEFAULTS.description);
+  removeMeta('name', 'robots');
 }

@@ -223,12 +223,23 @@ export default function LetterViewer({ letter }) {
             </div>
 
             {/* Create your own CTA */}
-            <div className="text-center mt-8 mb-12">
+            <div className="text-center mt-8 mb-6">
               <p className="text-gray-500 mb-3">Want to send your own letter?</p>
               <a href="/create">
                 <Button variant="primary" size="lg">
                   ✨ Create a Letter — It's Free
                 </Button>
+              </a>
+            </div>
+
+            {/* Made with badge — turns recipients into new users */}
+            <div className="text-center pb-8">
+              <a
+                href="/"
+                data-testid="made-with-badge"
+                className="text-xs text-gray-400 hover:text-primary-500 transition-colors dark:text-gray-500 dark:hover:text-primary-400"
+              >
+                ✨ Made with LoveDrop
               </a>
             </div>
           </div>

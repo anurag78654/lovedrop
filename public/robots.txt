@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Private letters should never be indexed by search engines
+Disallow: /letter/
+
+Sitemap: https://lovedrop.pages.dev/sitemap.xml

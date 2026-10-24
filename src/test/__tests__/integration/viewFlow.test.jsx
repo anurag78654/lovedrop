@@ -130,6 +130,28 @@ describe('View flow - valid letter', () => {
       { timeout: 5000 }
     );
   });
+
+  it('shows Made with LoveDrop badge after letter is opened', async () => {
+    seedLetter();
+    renderView();
+
+    const envelope = await screen.findByRole('button', { name: /Open envelope/i }, { timeout: 5000 });
+
+    // Badge hidden while envelope is still closed
+    expect(screen.queryByTestId('made-with-badge')).not.toBeInTheDocument();
+
+    fireEvent.click(envelope);
+
+    await waitFor(
+      () => {
+        const badge = screen.getByTestId('made-with-badge');
+        expect(badge).toBeInTheDocument();
+        expect(badge).toHaveAttribute('href', '/');
+        expect(badge).toHaveTextContent('Made with LoveDrop');
+      },
+      { timeout: 5000 }
+    );
+  });
 });
 
 describe('View flow - friendship theme', () => {

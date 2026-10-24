@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { applyLetterMeta, resetMeta } from '../../../lib/seo';
+import { applyLetterMeta, resetMeta, setCanonical } from '../../../lib/seo';
 
 beforeEach(() => {
   document.title = 'LoveDrop - Send Beautiful Virtual Letters';
@@ -52,6 +52,36 @@ describe('applyLetterMeta', () => {
   it('does nothing for null letter', () => {
     expect(() => applyLetterMeta(null)).not.toThrow();
   });
+
+  it('marks letter pages as noindex for privacy', () => {
+    applyLetterMeta(letter);
+    const robots = document.querySelector('meta[name="robots"]');
+    expect(robots).toBeTruthy();
+    expect(robots.getAttribute('content')).toContain('noindex');
+  });
+});
+
+describe('setCanonical', () => {
+  it('sets canonical link for a path', () => {
+    setCanonical('/create');
+    const link = document.querySelector('link[rel="canonical"]');
+    expect(link).toBeTruthy();
+    expect(link.getAttribute('href')).toBe('https://lovedrop.pages.dev/create');
+  });
+
+  it('uses trailing slash for home page', () => {
+    setCanonical('/');
+    expect(document.querySelector('link[rel="canonical"]').getAttribute('href')).toBe(
+      'https://lovedrop.pages.dev/'
+    );
+  });
+
+  it('keeps og:url in sync', () => {
+    setCanonical('/gallery');
+    expect(document.querySelector('meta[property="og:url"]').getAttribute('content')).toBe(
+      'https://lovedrop.pages.dev/gallery'
+    );
+  });
 });
 
 describe('resetMeta', () => {
@@ -66,5 +96,11 @@ describe('resetMeta', () => {
     resetMeta();
     const og = document.querySelector('meta[property="og:title"]');
     expect(og.getAttribute('content')).toBe('LoveDrop - Send Beautiful Virtual Letters');
+  });
+
+  it('removes noindex robots tag when leaving letter page', () => {
+    applyLetterMeta({ sender_name: 'A', recipient_name: 'B', title: 'Hi', message: 'yo' });
+    resetMeta();
+    expect(document.querySelector('meta[name="robots"]')).toBeNull();
   });
 });
