@@ -28,14 +28,14 @@ export default class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 text-center">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center px-4 text-center">
           <div className="text-7xl mb-6">😵</div>
 
-          <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-800 mb-3">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-800 dark:text-gray-100 mb-3">
             Oops, something broke!
           </h1>
 
-          <p className="text-gray-500 max-w-md mb-6">
+          <p className="text-gray-500 dark:text-gray-400 max-w-md mb-6">
             Don't worry — your letter is safe. This is just a temporary glitch
             on our side.
           </p>
@@ -43,10 +43,10 @@ export default class ErrorBoundary extends Component {
           {/* Technical detail (collapsible) */}
           {this.state.error && (
             <details className="mb-8 max-w-lg w-full text-left">
-              <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-600">
+              <summary className="text-sm text-gray-400 dark:text-gray-500 cursor-pointer hover:text-gray-600 dark:hover:text-gray-400">
                 Technical details
               </summary>
-              <pre className="mt-2 p-3 bg-gray-100 rounded-lg text-xs text-gray-600 overflow-auto max-h-40">
+              <pre className="mt-2 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs text-gray-600 dark:text-gray-400 overflow-auto max-h-40">
                 {String(this.state.error.message || this.state.error)}
               </pre>
             </details>
@@ -64,7 +64,7 @@ export default class ErrorBoundary extends Component {
             </button>
             <button
               onClick={this.handleReset}
-              className="px-6 py-3 bg-white text-primary-600 font-medium rounded-xl border-2 border-primary-200 hover:border-primary-400 transition-all"
+              className="px-6 py-3 bg-white dark:bg-gray-900 text-primary-600 dark:text-primary-400 font-medium rounded-xl border-2 border-primary-200 dark:border-gray-700 hover:border-primary-400 transition-all"
             >
               🔄 Try Again
             </button>

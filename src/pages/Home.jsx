@@ -40,17 +40,17 @@ export default function Home() {
         <HeartParticles theme="romantic" count={25} active={true} />
 
         {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50 via-white to-pink-50 -z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 -z-10" />
 
         <div className="container mx-auto px-4 text-center relative z-20">
           <div className="max-w-3xl mx-auto">
             {/* Badge */}
-            <div className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-6 animate-fade-in">
+            <div className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300 rounded-full text-sm font-medium mb-6 animate-fade-in">
               ✨ Free • No Sign-up Needed
             </div>
 
             {/* Heading */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 mb-6 animate-slide-up">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 dark:text-gray-100 mb-6 animate-slide-up">
               Send a <span className="text-gradient">Beautiful Letter</span>
               <br />
               to Someone Special
@@ -129,7 +129,7 @@ export default function Home() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center p-6 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center text-3xl">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-100 dark:bg-primary-900/40 flex items-center justify-center text-3xl">
                   {item.emoji}
                 </div>
                 <div className="text-xs font-bold text-primary-500 mb-2">STEP {item.step}</div>
