@@ -51,6 +51,45 @@ export function setCanonical(pathname) {
 }
 
 /**
+ * Set title/description for a static marketing page (landing pages).
+ * Canonical is handled globally by App.jsx.
+ * @param {{title: string, description: string}} meta
+ */
+export function applyPageMeta({ title, description }) {
+  if (title) {
+    document.title = title;
+    upsertMeta('property', 'og:title', title);
+    upsertMeta('name', 'twitter:title', title);
+  }
+  if (description) {
+    upsertMeta('name', 'description', description);
+    upsertMeta('property', 'og:description', description);
+    upsertMeta('name', 'twitter:description', description);
+  }
+}
+
+/**
+ * Inject a JSON-LD structured data block (rich results in Google).
+ * @param {string} id unique script id
+ * @param {Object} data JSON-LD object
+ */
+export function setJsonLd(id, data) {
+  let el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement('script');
+    el.id = id;
+    el.type = 'application/ld+json';
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+}
+
+export function removeJsonLd(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+/**
  * Set page title + OG/Twitter tags for a letter.
  * Letter pages are marked noindex (private content).
  * @param {Object} letter
@@ -79,6 +118,7 @@ export function applyLetterMeta(letter) {
  */
 export function resetMeta() {
   document.title = DEFAULTS.title;
+  upsertMeta('name', 'description', DEFAULTS.description);
   upsertMeta('property', 'og:title', DEFAULTS.title);
   upsertMeta('property', 'og:description', DEFAULTS.description);
   upsertMeta('name', 'twitter:title', DEFAULTS.title);

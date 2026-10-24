@@ -23,7 +23,7 @@ export default function Home() {
             <ThemeToggle />
             <Link
               to="/gallery"
-              className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 hover:text-primary-500 transition-colors hidden md:block"
+              className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-500 transition-colors hidden md:block"
             >
               Gallery
             </Link>
@@ -242,6 +242,12 @@ export default function Home() {
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <Link to="/create" className="hover:text-white transition-colors">Create</Link>
             <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mt-3 text-xs opacity-70">
+            <Link to="/long-distance" className="hover:text-white transition-colors">Long-distance letters</Link>
+            <Link to="/open-when" className="hover:text-white transition-colors">Open when letters</Link>
+            <Link to="/letter-with-music" className="hover:text-white transition-colors">Letters with music</Link>
+            <Link to="/anonymous-letter" className="hover:text-white transition-colors">Anonymous letters</Link>
           </div>
           <p className="text-xs mt-4 opacity-50">
             © 2026 LoveDrop. All rights reserved.

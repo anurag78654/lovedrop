@@ -18,6 +18,10 @@ describe('SEO public files', () => {
     expect(xml).toContain('https://lovedrop.pages.dev/');
     expect(xml).toContain('https://lovedrop.pages.dev/create');
     expect(xml).toContain('https://lovedrop.pages.dev/gallery');
+    expect(xml).toContain('https://lovedrop.pages.dev/long-distance');
+    expect(xml).toContain('https://lovedrop.pages.dev/open-when');
+    expect(xml).toContain('https://lovedrop.pages.dev/letter-with-music');
+    expect(xml).toContain('https://lovedrop.pages.dev/anonymous-letter');
     expect(xml).not.toContain('/letter/');
   });
 });

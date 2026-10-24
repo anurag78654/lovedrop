@@ -10,6 +10,7 @@ import { setCanonical } from './lib/seo.js';
 const Create = lazy(() => import('./pages/Create.jsx'));
 const View = lazy(() => import('./pages/View.jsx'));
 const Gallery = lazy(() => import('./pages/Gallery.jsx'));
+const Landing = lazy(() => import('./pages/Landing.jsx'));
 
 function PageLoader() {
   return (
@@ -36,6 +37,10 @@ function App() {
           <Route path="/create" element={<Create />} />
           <Route path="/letter/:id" element={<View />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/long-distance" element={<Landing slug="long-distance" />} />
+          <Route path="/letter-with-music" element={<Landing slug="letter-with-music" />} />
+          <Route path="/open-when" element={<Landing slug="open-when" />} />
+          <Route path="/anonymous-letter" element={<Landing slug="anonymous-letter" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
