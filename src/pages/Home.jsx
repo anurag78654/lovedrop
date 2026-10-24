@@ -242,6 +242,7 @@ export default function Home() {
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <Link to="/create" className="hover:text-white transition-colors">Create</Link>
             <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
+            <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
           </div>
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mt-3 text-xs opacity-70">
             <Link to="/love-letter-maker" className="hover:text-white transition-colors">Love letter maker</Link>

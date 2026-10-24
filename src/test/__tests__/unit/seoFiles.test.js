@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { landingSlugs } from '../../../content/landingPages';
+import { blogSlugs } from '../../../content/blogPosts';
 
 const publicPath = (file) => resolve(process.cwd(), 'public', file);
 
@@ -22,6 +23,11 @@ describe('SEO public files', () => {
 
     landingSlugs.forEach((slug) => {
       expect(xml).toContain(`https://lovedrop.pages.dev/${slug}`);
+    });
+
+    expect(xml).toContain('https://lovedrop.pages.dev/blog');
+    blogSlugs.forEach((slug) => {
+      expect(xml).toContain(`https://lovedrop.pages.dev/blog/${slug}`);
     });
 
     expect(xml).not.toContain('/letter/');

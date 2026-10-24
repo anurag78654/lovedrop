@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { landingPages, landingSlugs } from '../content/landingPages';
+import { landingPages } from '../content/landingPages';
 import { applyPageMeta, resetMeta, setJsonLd, removeJsonLd } from '../lib/seo';
 import Button from '../components/ui/Button';
-import ThemeToggle from '../components/ui/ThemeToggle';
+import SiteNav from '../components/layout/SiteNav';
+import SiteFooter from '../components/layout/SiteFooter';
 
 /**
  * Generic marketing landing page (SEO-3).
@@ -37,27 +38,7 @@ export default function Landing({ slug }) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 glass">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-xl">💌</span>
-            <span className="font-display font-bold text-gradient">LoveDrop</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <Link
-              to="/gallery"
-              className="text-sm text-gray-600 hover:text-primary-500 transition-colors dark:text-gray-300 hidden sm:block"
-            >
-              Gallery
-            </Link>
-            <Link to="/create">
-              <Button size="sm">Create a Letter</Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       <main>
         {/* Hero */}
@@ -199,37 +180,7 @@ export default function Landing({ slug }) {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-8 bg-gray-900 text-gray-400">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="text-xl">💌</span>
-            <span className="text-lg font-display font-bold text-white">LoveDrop</span>
-          </div>
-          <p className="text-sm">Made with ❤️ for the people you miss</p>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 text-sm">
-            <Link to="/" className="hover:text-white transition-colors">
-              Home
-            </Link>
-            <Link to="/create" className="hover:text-white transition-colors">
-              Create
-            </Link>
-            <Link to="/gallery" className="hover:text-white transition-colors">
-              Gallery
-            </Link>
-            {landingSlugs.map((footerSlug) => (
-              <Link
-                key={footerSlug}
-                to={`/${footerSlug}`}
-                className="hover:text-white transition-colors"
-              >
-                {landingPages[footerSlug].eyebrow}
-              </Link>
-            ))}
-          </div>
-          <p className="text-xs mt-4 opacity-50">© 2026 LoveDrop. All rights reserved.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

@@ -11,6 +11,8 @@ const Create = lazy(() => import('./pages/Create.jsx'));
 const View = lazy(() => import('./pages/View.jsx'));
 const Gallery = lazy(() => import('./pages/Gallery.jsx'));
 const Landing = lazy(() => import('./pages/Landing.jsx'));
+const Blog = lazy(() => import('./pages/Blog.jsx'));
+const BlogPost = lazy(() => import('./pages/BlogPost.jsx'));
 
 function PageLoader() {
   return (
@@ -46,6 +48,8 @@ function App() {
           <Route path="/friendship" element={<Landing slug="friendship" />} />
           <Route path="/sorry-letter" element={<Landing slug="sorry-letter" />} />
           <Route path="/valentine" element={<Landing slug="valentine" />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
